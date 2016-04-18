@@ -243,7 +243,7 @@ describe('Parser regression tests', function () {
         testErrors(util.data("parser/examples/ex33.raml"));
     })
     it ("example inside of inplace type" ,function(){
-        testErrors(util.data("parser/examples/ex34.raml"), ["Required property: x is missed", "specifying unknown facet:format"]);
+        testErrors(util.data("parser/examples/ex34.raml"), ["Required property: x is missed"]);
     })
     it ("aws example" ,function(){
         testErrors(util.data("parser/examples/ex35.raml"), ["enum facet can only contain unique items"]);
@@ -539,10 +539,10 @@ describe('Parser regression tests', function () {
     //    testErrors(util.data("parser/recursive/r1.raml"));
     //})
     it ("custom facets validator" ,function(){
-        testErrors(util.data("commonLibrary/api.raml"), ["string is expected","string is expected","object is expected"]);
+        testErrors(util.data("commonLibrary/api.raml"), ["string is expected","string is expected","Issues in the used library:./common.raml"]);
     })
     it ("custom facets validator2" ,function(){
-        testErrors(util.data("commonLibrary/api2.raml"),["object is expected"]);
+        testErrors(util.data("commonLibrary/api2.raml"),["issues in the used library:./common.raml"]);
     })
     //it ("custom facets validator3" ,function(){
     //    testErrors(util.data("commonLibrary/api3.raml"), ["object is expected ../../../src/raml1/test/data/commonLibrary/common.raml"]);
@@ -651,7 +651,7 @@ describe('Parser regression tests', function () {
     })
 
     it ("library is not user class" ,function(){
-        testErrors(util.data("parser/raml/raml.raml"),["It is only allowed to use scalar properties as discriminators"]);
+        testErrors(util.data("parser/raml/raml.raml"),["Issues in the used library:../sds/sds.raml"]);
     })
     it ("library from christian" ,function(){
         testErrors(util.data("parser/libraries/christian/api.raml"));
@@ -775,6 +775,13 @@ describe('JSON schemes tests', function () {
         testErrorsByNumber(util.data("parser/jsonscheme/test11/apiInvalid.raml"), 1);
     })
 });
+
+describe("Include tests + typesystem",function (){
+    it("Include test" ,function() {
+        this.timeout(15000);
+        testErrorsByNumber(util.data("parser/include/includeTypes.raml"), 0);
+    })
+})
 
 
 describe('Parse strings', function () {
